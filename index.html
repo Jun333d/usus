@@ -7,25 +7,20 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Cookie&display=swap" rel="stylesheet">
     <style>
-        @font-face {
-            font-family: 'Playwrite England SemiJoined';
-            src: url('fonts/PlaywriteEnglandSemiJoined.woff2') format('woff2'),
-                 url('fonts/PlaywriteEnglandSemiJoined.woff') format('woff');
-            font-weight: normal;
-            font-style: normal;
-        }
+
 
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
+            
         }
-        .cookie-font {
-            font-family: 'Cookie', cursive;
+        .p1 {
             font-size: 1.5em;
             color: #555;
-            text-align: center;
             margin-top: 20px;
+            text-align: center;
+            font-family: 'Cookie', cursive;
         }
 
         nav {
@@ -108,51 +103,6 @@
             display: block;
         }
 
-        #products {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            padding: 20px;
-        }
-
-        .product {
-            position: relative;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            margin: 10px;
-            width: 100%;
-            max-width: 250px;
-            aspect-ratio: 1;
-            text-align: center;
-            cursor: pointer;
-            text-decoration: none;
-            color: black;
-            overflow: hidden;
-        }
-
-        .product img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.2s;
-        }
-
-        .product img:hover {
-            transform: scale(1.1);
-        }
-
-        .product p {
-            position: absolute;
-            bottom: 10px;
-            left: 10px;
-            margin: 0;
-            background-color: rgba(0, 0, 0, 0.7);
-            color: white;
-            padding: 5px 10px;
-            border-radius: 3px;
-            font-size: 1.1em;
-        }
-
         footer {
             background-color: #ffffff;
             padding: 10px 0;
@@ -175,12 +125,27 @@
         footer a:hover {
             color: #555;
         }
+        main {
+            padding: 20px;
+            font-family: 'Cookie', cursive;
+            font-size: 1.6em;
+        }
+        section {
+            margin-bottom: 15px;
+            padding: 15px;
+        }
+        #home {
+            background-color: #FDEBD0; /* Light Peach */
+        }
+        #about {
+            background-color: #FCF3CF; /* Soft Yellow */
+        }
     </style>
 </head>
 <body>
 
     <nav>
-        <h2>Rand</h2>
+        <img src="https://i.imgur.com/w49mLyC.png" alt="Logo" style="height: 40px;">
         <div class="menu-button" onclick="toggleSidebar()">
             <svg xmlns="http://www.w3.org/2000/svg" height="30" viewBox="0 96 960 960" width="30">
                 <path d="M120 816v-60h720v60H120Zm0-210v-60h720v60H120Zm0-210v-60h720v60H120Z"/>
@@ -197,13 +162,19 @@
         <a href="#">Services</a>
         <a href="#">Contact</a>
     </div>
-    <div class="cookie-font">
+    <div class="p1">
         <p>Come back soon to see more unforgettable moments!</p>
     </div>
-    <p>
-        The image will float to the right of the text.
-    </p>
-    <img src="https://drive.google.com/uc?export=view&id=1y_S2m_Cp6aRkJwh0f-nPR_8ib36niRx0" alt="Google Drive Image" style="max-width:100%; height:auto;">
+    <main>
+        <section id="home">
+            <h2>Home</h2>
+            <p>Welcome to a clean and refreshing web experience.</p>
+        </section>
+        <section id="about">
+            <h2>About Us</h2>
+            <p>We focus on simplicity and elegance in design.</p>
+    </div>
+    </main>
 
 
       <footer>
