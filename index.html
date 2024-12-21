@@ -3,207 +3,126 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Clothing Store</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Cookie&display=swap" rel="stylesheet">
+    <title>Password Protected Page</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> <!-- Font Awesome CSS -->
     <style>
-
-
         body {
             font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            
-        }
-        .p1 {
-            font-size: 1.5em;
-            color: #555;
-            margin-top: 20px;
-            text-align: center;
-            font-family: 'Cookie', cursive;
-        }
-
-        nav {
-            background-color: #D6EAF8;
-            box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.1);
-            height: 60px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 20px;
-            position: relative;
-            z-index: 3;
-            text-align: center;
-        }
-
-        nav h2 {
-            font-size: 24px;
-            font-family: 'Playwrite England SemiJoined', cursive;
-        }
-
-        .sidebar {
-            position: fixed;
-            top: 0;
-            right: -250px;
-            width: 150px;
-            height: 100vh;
-            background-color: #ffffff;
-            color: rgb(0, 0, 0);
             display: flex;
             flex-direction: column;
-            justify-content: flex-start;
-            transition: right 0.3s ease;
-            padding-top: 4px;
-            z-index: 4;
-            text-align: center;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background: linear-gradient(to bottom, #d7f3fc, #a8dff1); /* Light blue gradient background */
         }
-
-        .menu-button{
-            cursor: pointer;
-            background: none;
-            border: none;
-        }
-
-        .sidebar h2 {
-            padding-top: 14px;
-            padding-bottom: 14px;
-            margin: 0;
-            background-color: #f7f7f7;
-            font-size: 24px;
-        }
-
-        .sidebar a {
-            padding: 15px;
-            text-decoration: none;
-            color: rgb(0, 0, 0);
-            text-align: center;
-            display: block;
-        }
-
-        .sidebar a:hover {
-            background-color: #bdbdbd;
-        }
-
-        .sidebar.open {
-            right: 0;
-        }
-
-        .overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.1);
-            display: none;
-            z-index: 2;
-        }
-
-        .overlay.show {
-            display: block;
-        }
-
-        footer {
-            background-color: #ffffff;
-            padding: 10px 0;
-            width: 100%;
-        }
-
-        footer p {
-            padding-left: 15px;
-            margin: 10px 0;
-        }
-
-        footer a {
-            margin: 0 10px;
-            color: black;
-            font-size: 20px;
-            text-decoration: none;
-            text-align: center;
-        }
-
-        footer a:hover {
-            color: #555;
-        }
-        main {
+        .container {
+            background: linear-gradient(to bottom, #007bff, #0056b3); /* Vibrant blue gradient for the container */
             padding: 20px;
-            font-family: 'Cookie', cursive;
-            font-size: 1.6em;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); /* Stronger shadow for depth */
+            width: 220px;
+            text-align: center;
+            color: white;
         }
-        section {
+        h2 {
             margin-bottom: 15px;
-            padding: 15px;
+            font-size: 20px;
+            color: #f0f8ff; /* Light color for contrast */
         }
-        #home {
-            background-color: #FDEBD0; /* Light Peach */
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #d1ecf1; /* Softer light blue for labels */
+            font-size: 14px;
         }
-        #about {
-            background-color: #FCF3CF; /* Soft Yellow */
+        input[type="password"] {
+            width: calc(100% - 40px);
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #b8daff; /* Light blue border */
+            border-radius: 6px;
+            padding-right: 30px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        input[type="password"]:focus {
+            border-color: #007bff;
+            box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3); /* Glowing effect */
+            outline: none;
+        }
+        .toggle-password {
+            cursor: pointer;
+            color: #ffffff;
+            font-size: 18px; /* Slightly larger for visibility */
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        button {
+            width: 100%; /* Full width button for consistency */
+            padding: 8px;
+            border: none;
+            border-radius: 6px;
+            background-color: #28a745; /* Green for success */
+            color: #ffffff;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #218838; /* Darker green on hover */
         }
     </style>
+    <script type="text/javascript">
+        async function hashPassword(password) {
+            const encoder = new TextEncoder();
+            const data = encoder.encode(password);
+            const hash = await crypto.subtle.digest('SHA-256', data);
+            return Array.from(new Uint8Array(hash))
+                .map(b => b.toString(16).padStart(2, '0'))
+                .join('');
+        }
+
+        async function checkPassword() {
+            const password = document.getElementById('password').value;
+            const hashedPassword = await hashPassword(password);
+            const correctHashedPassword = '4e0e2a5f3b94b3e8c03727b2d5ef7d679db364d2b9f89662c6cc77407a2d40b9'; // Hash for "8808"
+
+            if (hashedPassword === correctHashedPassword) {
+                window.location.href = 'usus.html'; // Redirect to usus.html
+            } else {
+                alert('Invalid password, please try again.');
+            }
+        }
+
+        function togglePasswordVisibility() {
+            const passwordInput = document.getElementById('password');
+            const toggleButton = document.getElementById('toggle-password');
+
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                toggleButton.classList.remove('fa-eye-slash');
+                toggleButton.classList.add('fa-eye');
+            } else {
+                passwordInput.type = 'password';
+                toggleButton.classList.remove('fa-eye');
+                toggleButton.classList.add('fa-eye-slash');
+            }
+        }
+    </script>
 </head>
 <body>
-
-    <nav>
-        <img src="https://i.imgur.com/w49mLyC.png" alt="Logo" style="height: 40px;">
-        <div class="menu-button" onclick="toggleSidebar()">
-            <svg xmlns="http://www.w3.org/2000/svg" height="30" viewBox="0 96 960 960" width="30">
-                <path d="M120 816v-60h720v60H120Zm0-210v-60h720v60H120Zm0-210v-60h720v60H120Z"/>
-            </svg>
-        </div>
-    </nav>
-    
-    <div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
-    
-    <div class="sidebar" id="sidebar">
-        <h2>Welcome</h2>
-        <a href="#">Home</a>
-        <a href="#">About</a>
-        <a href="#">Services</a>
-        <a href="#">Contact</a>
+    <div class="container">
+        <h2>Password Protected</h2>
+        <form onsubmit="event.preventDefault(); checkPassword();">
+            <label for="password">Enter Password:</label>
+            <div style="position: relative;">
+                <input type="password" id="password" name="password" required>
+                <i id="toggle-password" class="fas fa-eye-slash toggle-password" onclick="togglePasswordVisibility()"></i>
+            </div>
+            <button type="submit">Enter</button>
+        </form>
     </div>
-    <div class="p1">
-        <p>Come back soon to see more unforgettable moments!</p>
-    </div>
-    <main>
-        <section id="home">
-            <h2>Home</h2>
-            <p>Welcome to a clean and refreshing web experience.</p>
-        </section>
-        <section id="about">
-            <h2>About Us</h2>
-            <p>We focus on simplicity and elegance in design.</p>
-    </div>
-    </main>
-
-
-      <footer>
-          <p>&copy; 2024 jick's. All rights reserved.</p>
-          <p>
-              <a href="#"><i class="fab fa-facebook-f"></i></a>
-              <a href="https://www.instagram.com/faxt_ion_87/profilecard/"><i class="fab fa-instagram"></i></a>
-              <a href="#"><i class="fab fa-twitter"></i></a>
-          </p>
-      </footer>
-  
-      <script>
-          function toggleSidebar() {
-              const sidebar = document.getElementById('sidebar');
-              const overlay = document.getElementById('overlay');
-              sidebar.classList.toggle('open');
-              overlay.classList.toggle('show');
-          }
-          document.addEventListener('click', (event) => {
-              const sidebar = document.getElementById('sidebar');
-              const overlay = document.getElementById('overlay');
-              const isClickInsideSidebar = sidebar.contains(event.target);
-              const isClickInsideButton = document.querySelector('.menu-button').contains(event.target);
-  
-              if (!isClickInsideSidebar && !isClickInsideButton && sidebar.classList.contains('open')) {
-                  toggleSidebar();
-              }
-          });
-      </script>
-  </body>
-  </html>
-  
+</body>
+</html>
