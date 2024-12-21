@@ -35,28 +35,33 @@
             color: #d1ecf1; /* Softer light blue for labels */
             font-size: 14px;
         }
-        input[type="password"] {
-            width: calc(100% - 40px);
+        .input-container {
+            position: relative;
+            width: 100%; /* Ensure input container spans full width */
+        }
+        input[type="password"], input[type="text"] {
+            width: 100%; /* Consistent width */
             padding: 8px;
             margin-bottom: 10px;
             border: 1px solid #b8daff; /* Light blue border */
             border-radius: 6px;
-            padding-right: 30px;
+            padding-right: 35px; /* Space for the icon */
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
             transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            box-sizing: border-box; /* Prevent size changes */
         }
-        input[type="password"]:focus {
+        input[type="password"]:focus, input[type="text"]:focus {
             border-color: #007bff;
             box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3); /* Glowing effect */
             outline: none;
         }
         .toggle-password {
             cursor: pointer;
-            color: #ffffff;
+            color: #4e4e4e;
             font-size: 18px; /* Slightly larger for visibility */
             position: absolute;
             right: 10px;
-            top: 50%;
+            top: 40%;
             transform: translateY(-50%);
         }
         button {
@@ -80,7 +85,7 @@
             var correctPassword = '8808';
 
             if (password === correctPassword) {
-                window.location.href = 'usus.html';
+                window.location.href = 'usus.html'; // Redirects to local file
             } else {
                 alert('Invalid password, please try again.');
             }
@@ -107,7 +112,7 @@
         <h2>Password Protected</h2>
         <form onsubmit="event.preventDefault(); checkPassword();">
             <label for="password">Enter Password:</label>
-            <div style="position: relative;">
+            <div class="input-container">
                 <input type="password" id="password" name="password" required>
                 <i id="toggle-password" class="fas fa-eye-slash toggle-password" onclick="togglePasswordVisibility()"></i>
             </div>
