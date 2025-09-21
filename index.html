@@ -1,123 +1,294 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Password Protected Page</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> <!-- Font Awesome CSS -->
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            background: linear-gradient(to bottom, #d7f3fc, #a8dff1); /* Light blue gradient background */
-        }
-        .container {
-            background: linear-gradient(to bottom, #007bff, #0056b3); /* Vibrant blue gradient for the container */
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); /* Stronger shadow for depth */
-            width: 220px;
-            text-align: center;
-            color: white;
-        }
-        h2 {
-            margin-bottom: 15px;
-            font-size: 20px;
-            color: #f0f8ff; /* Light color for contrast */
-        }
-        label {
-            display: block;
-            margin-bottom: 5px;
-            color: #d1ecf1; /* Softer light blue for labels */
-            font-size: 14px;
-        }
-        .input-container {
-            position: relative;
-            width: 100%; /* Ensure input container spans full width */
-        }
-        input[type="password"], input[type="text"] {
-            width: 100%; /* Consistent width */
-            padding: 8px;
-            margin-bottom: 10px;
-            border: 1px solid #b8daff; /* Light blue border */
-            border-radius: 6px;
-            padding-right: 35px; /* Space for the icon */
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-            transition: border-color 0.3s ease, box-shadow 0.3s ease;
-            box-sizing: border-box; /* Prevent size changes */
-        }
-        input[type="password"]:focus, input[type="text"]:focus {
-            border-color: #007bff;
-            box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3); /* Glowing effect */
-            outline: none;
-        }
-        .toggle-password {
-            cursor: pointer;
-            color: #4e4e4e;
-            font-size: 18px; /* Slightly larger for visibility */
-            position: absolute;
-            right: 10px;
-            top: 40%;
-            transform: translateY(-50%);
-        }
-        button {
-            width: 100%; /* Full width button for consistency */
-            padding: 8px;
-            border: none;
-            border-radius: 6px;
-            background-color: #28a745; /* Green for success */
-            color: #ffffff;
-            font-size: 14px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-        button:hover {
-            background-color: #218838; /* Darker green on hover */
-        }
-    </style>
-    <script type="text/javascript">
-        function checkPassword() {
-            var password = document.getElementById('password').value;
-            var correctPassword = '8808';
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Humming Bird NGO</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f9f9f9;
+      color: #333;
+    }
+    header {
+      background: #00897B;
+      color: white;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 20px;
+    }
+    nav {
+      display: flex;
+      gap: 15px;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    nav a:hover {
+      text-decoration: underline;
+    }
+    .donate-btn {
+      background: #ff9800;
+      padding: 8px 15px;
+      border-radius: 5px;
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      display: inline-block;
+      cursor: pointer;
+    }
+    .donate-btn:hover {
+      background: #e68900;
+    }
+    .menu-toggle {
+      display: none;
+      font-size: 24px;
+      cursor: pointer;
+    }
+    section {
+      padding: 50px 15px;
+      max-width: 1000px;
+      margin: auto;
+    }
+    .hero {
+      text-align: center;
+      background: url('https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&w=1350&q=80') no-repeat center/cover;
+      color: white;
+      padding: 80px 20px;
+    }
+    .hero h2 {
+      font-size: 32px;
+      margin: 0 0 15px;
+    }
+    .hero p {
+      font-size: 18px;
+      margin-bottom: 20px;
+    }
+    footer {
+      background: #333;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      margin-top: 30px;
+    }
+    footer a {
+      color: #ff9800;
+      margin: 0 8px;
+      text-decoration: none;
+    }
 
-            if (password === correctPassword) {
-                window.location.href = 'usus.html'; // Redirects to local file
-            } else {
-                alert('Invalid password, please try again.');
-            }
-        }
+    /* ✅ Donation Popup */
+    .popup {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.6);
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
+    }
+    .popup-content {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      text-align: center;
+      width: 90%;
+      max-width: 400px;
+      position: relative;
+    }
+    .popup-content img {
+      width: 200px;
+      margin-bottom: 15px;
+    }
+    .popup-content h2 {
+      margin-top: 0;
+    }
+    .close-btn {
+      position: absolute;
+      top: 8px;
+      right: 12px;
+      font-size: 22px;
+      cursor: pointer;
+      color: #333;
+    }
+    .copy-btn {
+      background: #00897B;
+      color: white;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 8px;
+    }
+    .copy-btn:hover {
+      background: #00695c;
+    }
 
-        function togglePasswordVisibility() {
-            var passwordInput = document.getElementById('password');
-            var toggleButton = document.getElementById('toggle-password');
+    /* ✅ Gallery */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 15px;
+      margin-top: 25px;
+    }
+    .gallery img {
+      width: 100%;
+      border-radius: 8px;
+      object-fit: cover;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .gallery img:hover {
+      transform: scale(1.05);
+      box-shadow: 0px 4px 12px rgba(0,0,0,0.3);
+    }
 
-            if (passwordInput.type === 'password') {
-                passwordInput.type = 'text';
-                toggleButton.classList.remove('fa-eye-slash');
-                toggleButton.classList.add('fa-eye');
-            } else {
-                passwordInput.type = 'password';
-                toggleButton.classList.remove('fa-eye');
-                toggleButton.classList.add('fa-eye-slash');
-            }
-        }
-    </script>
+    /* ✅ Mobile Responsive */
+    @media (max-width: 768px) {
+      nav {
+        display: none;
+        flex-direction: column;
+        background: #00695c;
+        position: absolute;
+        top: 60px;
+        right: 0;
+        width: 200px;
+        padding: 10px;
+      }
+      nav a {
+        padding: 10px;
+        display: block;
+      }
+      .menu-toggle {
+        display: block;
+      }
+      .hero h2 {
+        font-size: 24px;
+      }
+      .hero p {
+        font-size: 16px;
+      }
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h2>Password Protected</h2>
-        <form onsubmit="event.preventDefault(); checkPassword();">
-            <label for="password">Enter Password:</label>
-            <div class="input-container">
-                <input type="password" id="password" name="password" required>
-                <i id="toggle-password" class="fas fa-eye-slash toggle-password" onclick="togglePasswordVisibility()"></i>
-            </div>
-            <button type="submit">Enter</button>
-        </form>
+
+  <header>
+    <h1>Humming Bird NGO</h1>
+    <span class="menu-toggle" onclick="toggleMenu()">☰</span>
+    <nav id="menu">
+      <a href="#about">About Us</a>
+      <a href="#work">Our Work</a>
+      <a href="#involved">Get Involved</a>
+      <a href="#contact">Contact</a>
+      <a onclick="openPopup()" class="donate-btn">Donate Us</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h2>Giving Wings to Hope</h2>
+    <p>Together we can make a difference for a brighter tomorrow.</p>
+    <a onclick="openPopup()" class="donate-btn">Donate Now</a>
+  </section>
+
+  <section id="about">
+    <h2>About Us</h2>
+    <p>Humming Bird NGO is dedicated to uplifting underprivileged communities through education, healthcare, and environmental initiatives. Our mission is to create lasting change with compassion and action.</p>
+  </section>
+
+  <section id="work">
+    <h2>Our Work</h2>
+    <ul>
+      <li>📚 Providing education for children in need</li>
+      <li>🌱 Environmental conservation programs</li>
+      <li>🏥 Healthcare support for rural areas</li>
+      <li>🍲 Food distribution to the homeless</li>
+    </ul>
+
+    <!-- ✅ Gallery of Work -->
+    <div class="gallery">
+      <img src="https://images.unsplash.com/photo-1603575448361-8f6f7e9f63ad?auto=format&fit=crop&w=800&q=80" alt="Children Education">
+      <img src="https://images.unsplash.com/photo-1529070538774-1843cb3265df?auto=format&fit=crop&w=800&q=80" alt="Tree Plantation">
+      <img src="https://images.unsplash.com/photo-1526256262350-7da7584cf5eb?auto=format&fit=crop&w=800&q=80" alt="Healthcare Support">
+      <img src="https://images.unsplash.com/photo-1504754524776-8f4f37790ca0?auto=format&fit=crop&w=800&q=80" alt="Food Distribution">
     </div>
+  <section id="involved">
+  <h2>Get Involved</h2>
+  <p>Join hands with us to make a change:</p>
+  <ul>
+    <li>Volunteer your time and skills</li>
+    <li>Partner with us for projects</li>
+    <li>Sponsor education for a child</li>
+  </ul>
+  <a href="https://wa.me/917757854804?text=Hello%20Humming%20Bird%20NGO!%20I%20would%20like%20to%20join%20your%20initiatives." 
+     target="_blank" class="donate-btn" style="background:#25D366; margin-top:15px;">Join Us on WhatsApp</a>
+</section>
+
+  <section id="contact">
+    <h2>Contact Us</h2>
+    <p>Email: contact@hummingbirdngo.org</p>
+    <p>Phone: +91-9876543210</p>
+    <p>Address: 123 Green Street, City, Country</p>
+  </section>
+
+  <footer>
+  <p>© 2025 Humming Bird NGO | Follow us:
+    <a href="https://www.facebook.com/hummingbirdngo" target="_blank">Facebook</a> |
+    <a href="https://www.instagram.com/hummingbird__ngo" target="_blank">Instagram</a> |
+    <a href="https://twitter.com/hummingbirdngo" target="_blank">Twitter</a>
+  </p>
+</footer>
+
+  <!-- ✅ Donation Popup -->
+  <div id="donationPopup" class="popup">
+    <div class="popup-content">
+      <span class="close-btn" onclick="closePopup()">×</span>
+      <h2>Donate via UPI</h2>
+      <img src="your-qr-code.png" alt="UPI QR Code">
+      
+      <div style="margin-top:15px;">
+        <input type="text" id="upiCode" value="hummingbirdngo@upi" readonly 
+               style="padding:8px; width:80%; text-align:center; border:1px solid #ccc; border-radius:5px; font-size:16px;">
+        <button class="copy-btn" onclick="copyUPI()">📋 Copy</button>
+        <span id="copyMsg" style="color:green; font-size:14px; margin-left:8px; display:none;">Copied!</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function toggleMenu() {
+      const menu = document.getElementById('menu');
+      menu.style.display = (menu.style.display === 'flex') ? 'none' : 'flex';
+    }
+    function openPopup() {
+      document.getElementById("donationPopup").style.display = "flex";
+    }
+    function closePopup() {
+      document.getElementById("donationPopup").style.display = "none";
+    }
+    function copyUPI() {
+      const upiInput = document.getElementById("upiCode");
+      upiInput.select();
+      upiInput.setSelectionRange(0, 99999); // for mobile
+      navigator.clipboard.writeText(upiInput.value);
+      
+      // Show "Copied!" message
+      const msg = document.getElementById("copyMsg");
+      msg.style.display = "inline";
+      setTimeout(() => msg.style.display = "none", 2000);
+    }
+  </script>
+
 </body>
 </html>
