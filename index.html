@@ -10,6 +10,7 @@
       font-family: Arial, sans-serif;
       background: #f9f9f9;
       color: #333;
+      transition: background 0.3s, color 0.3s;
     }
     header {
       background: #00897B;
@@ -29,6 +30,7 @@
     nav {
       display: flex;
       gap: 15px;
+      align-items: center;
     }
     nav a {
       color: white;
@@ -154,6 +156,37 @@
       box-shadow: 0px 4px 12px rgba(0,0,0,0.3);
     }
 
+    /* ✅ Dark Theme */
+    body.dark {
+      background: #121212;
+      color: #eee;
+    }
+    body.dark header {
+      background: #222;
+    }
+    body.dark nav a {
+      color: #eee;
+    }
+    body.dark .donate-btn {
+      background: #ff5722;
+    }
+    body.dark .donate-btn:hover {
+      background: #e64a19;
+    }
+    body.dark footer {
+      background: #000;
+    }
+    body.dark .popup-content {
+      background: #222;
+      color: #eee;
+    }
+    body.dark .copy-btn {
+      background: #ff5722;
+    }
+    body.dark .copy-btn:hover {
+      background: #e64a19;
+    }
+
     /* ✅ Mobile Responsive */
     @media (max-width: 768px) {
       nav {
@@ -180,6 +213,20 @@
         font-size: 16px;
       }
     }
+
+    /* ✅ Dark Mode Toggle Button */
+    .theme-btn {
+      background: #444;
+      color: white;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    .theme-btn:hover {
+      background: #666;
+    }
   </style>
 </head>
 <body>
@@ -193,6 +240,7 @@
       <a href="#involved">Get Involved</a>
       <a href="#contact">Contact</a>
       <a onclick="openPopup()" class="donate-btn">Donate Us</a>
+      <button class="theme-btn" onclick="toggleTheme()">🌙 Dark</button>
     </nav>
   </header>
 
@@ -216,14 +264,13 @@
       <li>🍲 Food distribution to the homeless</li>
     </ul>
 
-    <!-- ✅ Gallery of Work -->
     <div class="gallery">
-      <img src="https://images.unsplash.com/photo-1579296440601-efe78a19fa91?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Children Education">
+      <img src="https://images.unsplash.com/photo-1579296440601-efe78a19fa91?q=80&w=1287&auto=format&fit=crop" alt="Children Education">
       <img src="https://images.unsplash.com/photo-1529070538774-1843cb3265df?auto=format&fit=crop&w=800&q=80" alt="Tree Plantation">
       <img src="https://images.unsplash.com/photo-1526256262350-7da7584cf5eb?auto=format&fit=crop&w=800&q=80" alt="Healthcare Support">
       <img src="https://i.postimg.cc/W4YssMRh/fetch.jpg" alt="Food Distribution">
     </div>
-  </section> <!-- ✅ Properly closed -->
+  </section>
 
   <section id="involved">
     <h2>Get Involved</h2>
@@ -252,13 +299,11 @@
     </p>
   </footer>
 
-  <!-- ✅ Donation Popup -->
   <div id="donationPopup" class="popup">
     <div class="popup-content">
       <span class="close-btn" onclick="closePopup()">×</span>
       <h2>Donate via UPI</h2>
       <img src="https://i.postimg.cc/Y0pGT6Qj/qr.jpg" alt="UPI QR Code">
-      
       <div style="margin-top:15px;">
         <input type="text" id="upiCode" value="jyotishmandas793@oksbi" readonly 
                style="padding:8px; width:80%; text-align:center; border:1px solid #ccc; border-radius:5px; font-size:16px;">
@@ -282,13 +327,16 @@
     function copyUPI() {
       const upiInput = document.getElementById("upiCode");
       upiInput.select();
-      upiInput.setSelectionRange(0, 99999); // for mobile
+      upiInput.setSelectionRange(0, 99999);
       navigator.clipboard.writeText(upiInput.value);
-      
-      // Show "Copied!" message
       const msg = document.getElementById("copyMsg");
       msg.style.display = "inline";
       setTimeout(() => msg.style.display = "none", 2000);
+    }
+    function toggleTheme() {
+      document.body.classList.toggle("dark");
+      const btn = document.querySelector(".theme-btn");
+      btn.textContent = document.body.classList.contains("dark") ? "☀️ Light" : "🌙 Dark";
     }
   </script>
 
